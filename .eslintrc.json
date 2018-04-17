@@ -1,0 +1,55 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest/globals": true,
+    "node": true
+  },
+  "extends": ["airbnb"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "plugins": ["jest", "react"],
+  "rules": {
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "generator-star-spacing": "off",
+    "class-methods-use-this": "off",
+    "no-eval": "off",
+    "no-console": "error",
+    "no-debugger": "warn",
+    "no-irregular-whitespace": "off",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "jsx-a11y/anchor-has-content": "off",
+    "no-useless-escape": "off",
+    "react/prefer-stateless-function": "off",
+    "react/no-typos": "off",
+    "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": []
+      }
+    ]
+  },
+  "settings": {
+    "import/extensions": [".js", ".jsx"],
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.js"
+      }
+    }
+  },
+  "globals": {
+    "Ya": true
+  }
+}
