@@ -20,12 +20,17 @@ export default {
   findPentagoWinner(pentago) {
     const rowIter = this.iterateRow(pentago);
     const rowWinner = this.findWinner(pentago, rowIter);
-    if (rowWinner) {
-      return rowWinner;
-    }
+
     const colIter = this.iterateCol(pentago);
     const colWinner = this.findWinner(pentago, colIter);
-    return colWinner;
+
+    const diagLeftRightIter = this.iterateDiagLeftRight(pentago);
+    const diagLeftRightWinner = this.findWinner(pentago, diagLeftRightIter);
+
+    const diagRightLeftIter = this.iterateDiagRightLeft(pentago);
+    const diagRightLeftWinner = this.findWinner(pentago, diagRightLeftIter);
+
+    return colWinner || rowWinner || diagLeftRightWinner || diagRightLeftWinner;
   },
 
   findWinner(pentago, iterator) {
@@ -52,6 +57,30 @@ export default {
     }
 
     return null;
+  },
+
+  *iterateDiagLeftRight(pentago) {
+    const iterate = function* iterate(pent, step) {
+      for (let i = 0; i <= step; i += 1) {
+        yield pent[ROW_NUMBER - step + i - 1][i];
+      }
+    };
+
+    for (let i = 0; i < COL_NUMBER; i += 1) {
+      yield iterate(pentago, i);
+    }
+  },
+
+  *iterateDiagRightLeft(pentago) {
+    const iterate = function* iterate(pent, step) {
+      for (let i = 0; i <= step; i += 1) {
+        yield pent[step - i][i];
+      }
+    };
+
+    for (let i = 0; i < COL_NUMBER; i += 1) {
+      yield iterate(pentago, i);
+    }
   },
 
   *iterateCol(pentago) {
