@@ -17,6 +17,27 @@ export default {
     return player === 1 ? 2 : 1;
   },
 
+  rotate(pentago, x, y, direction) {
+    let result = pentago;
+    const conNumber = COL_NUMBER / 2;
+    const rowNumber = ROW_NUMBER / 2;
+    for (let i = 0; i < conNumber; i += 1) {
+      for (let j = 0; j < rowNumber; j += 1) {
+        const read =
+          direction < 0
+            ? pentago[j + y * conNumber][rowNumber - 1 - i + x * conNumber]
+            : pentago[i + y * conNumber][j + x * conNumber];
+        const write =
+          direction < 0
+            ? [i + y * conNumber, j + x * conNumber]
+            : [j + y * conNumber, rowNumber - 1 - i + x * conNumber];
+
+        result = assocPath(write, read, result);
+      }
+    }
+    return result;
+  },
+
   findPentagoWinner(pentago) {
     const rowIter = this.iterateRow(pentago);
     const rowWinner = this.findWinner(pentago, rowIter);
