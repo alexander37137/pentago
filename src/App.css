@@ -1,9 +1,63 @@
-.title {
-  margin-left: 80px;
+#root,
+.root,
+body,
+html {
+  height: 100%;
 }
 
 .grid {
-  margin: 50px;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: 'title title title title' '. top-left-rotate-right top-right-rotate-left .' 'top-left-rotate-left pentago pentago top-right-rotate-right' 'bottom-left-rotate-right pentago pentago bottom-right-rotate-left' '. bottom-left-rotate-left bottom-right-rotate-right .' 'winner winner winner winner';
+}
+
+.title {
+  text-align: center;
+  grid-area: title;
+}
+
+.winner {
+  text-align: center;
+  grid-area: winner;
+}
+
+.top-left-rotate-right {
+  grid-area: top-left-rotate-right;
+}
+
+.top-right-rotate-left {
+  grid-area: top-right-rotate-left;
+}
+
+.top-left-rotate-left {
+  grid-area: top-left-rotate-left;
+}
+
+.top-right-rotate-right {
+  grid-area: top-right-rotate-right;
+}
+
+.bottom-left-rotate-right {
+  grid-area: bottom-left-rotate-right;
+}
+
+.bottom-left-rotate-left {
+  grid-area: bottom-left-rotate-left;
+}
+
+.bottom-right-rotate-right {
+  grid-area: bottom-right-rotate-right;
+}
+
+.bottom-right-rotate-left {
+  grid-area: bottom-right-rotate-left;
+}
+
+.pentago {
+  grid-area: pentago;
+  margin: auto;
 }
 
 .row {

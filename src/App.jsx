@@ -36,9 +36,17 @@ class App extends Component {
   render() {
     const { pentago, winner } = this.state;
     return (
-      <div>
+      <div className="grid">
         <h1 className="title">Pentago</h1>
-        <div className="grid">
+        <button className="top-left-rotate-right">right</button>
+        <button className="top-right-rotate-left">left</button>
+        <button className="top-left-rotate-left">left</button>
+        <button className="top-right-rotate-right">right</button>
+        <button className="bottom-left-rotate-right">right</button>
+        <button className="bottom-right-rotate-left">left</button>
+        <button className="bottom-right-rotate-right">right</button>
+        <button className="bottom-left-rotate-left">left</button>
+        <div className="pentago">
           {pentago.map((rowValue, rowIndex) => (
             <div className="row">
               {rowValue.map((cellValue, cellIndex) => (
@@ -49,7 +57,7 @@ class App extends Component {
             </div>
           ))}
         </div>
-        {winner && <h1 className="title">Winner: player {winner}</h1>}
+        {winner && <h1 className="winner">Winner: player {winner}</h1>}
       </div>
     );
   }
