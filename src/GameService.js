@@ -17,6 +17,21 @@ export default {
     return player === 1 ? 2 : 1;
   },
 
+  setNextState(state, winner) {
+    if (winner) {
+      return 'win';
+    }
+    if (state === 'select') {
+      return 'rotate';
+    }
+
+    if (state === 'rotate') {
+      return 'select';
+    }
+
+    return 'fail';
+  },
+
   rotate(pentago, x, y, direction) {
     let result = pentago;
     const conNumber = COL_NUMBER / 2;

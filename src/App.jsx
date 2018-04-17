@@ -16,36 +16,67 @@ class App extends Component {
       [0, 0, 0, 0, 0, 0],
     ],
     winner: null,
+    state: 'select',
   };
 
-  handleClick = (row, cell) => {
-    const { pentago, player } = this.state;
+  handleClick(row, cell) {
+    const { pentago, player, state } = this.state;
+
+    if (state !== 'select') {
+      return;
+    }
 
     if (GameService.canSetValue(pentago, row, cell, player)) {
+      const newPentago = GameService.setValue(pentago, row, cell, player);
+      const winner = GameService.findPentagoWinner(newPentago);
       const newState = {
-        pentago: GameService.setValue(pentago, row, cell, player),
-        player: GameService.setNextPlayer(player),
+        winner,
+        state: GameService.setNextState(state, winner),
+        pentago: newPentago,
       };
 
-      const winner = GameService.findPentagoWinner(newState.pentago);
-
-      this.setState({ ...newState, winner });
+      this.setState(newState);
     }
-  };
+  }
 
   handleRotate(x, y, direction) {
-    const { pentago } = this.state;
+    const { pentago, state, player } = this.state;
+
+    if (state !== 'rotate') {
+      return;
+    }
+
+    const newPentago = GameService.rotate(pentago, x, y, direction);
+    const winner = GameService.findPentagoWinner(newPentago);
     const newState = {
-      pentago: GameService.rotate(pentago, x, y, direction),
+      winner,
+      pentago: newPentago,
+      state: GameService.setNextState(state, winner),
+      player: GameService.setNextPlayer(player),
     };
     this.setState(newState);
+  }
+
+  renderTitle() {
+    const { state, player } = this.state;
+    if (state === 'select') {
+      return `Player ${player}, please select cell`;
+    }
+
+    if (state === 'rotate') {
+      return `Player ${player}, please rotate`;
+    }
+    return null;
   }
 
   render() {
     const { pentago, winner } = this.state;
     return (
       <div className="grid">
-        <h1 className="title">Pentago</h1>
+        <div className="title">
+          <h1>Pentago</h1>
+          <h2>{this.renderTitle()}</h2>
+        </div>
         <button className="top-left-rotate-right" onClick={() => this.handleRotate(0, 0, 1)}>
           right
         </button>
