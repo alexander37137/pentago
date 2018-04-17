@@ -1,7 +1,6 @@
 import './App.css';
 
 import React, { Component } from 'react';
-import { assocPath, path } from 'ramda';
 
 import GameService from './GameService';
 
@@ -16,6 +15,7 @@ class App extends Component {
       [0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0],
     ],
+    winner: null,
   };
 
   handleClick = (row, cell) => {
@@ -27,12 +27,14 @@ class App extends Component {
         player: GameService.setNextPlayer(player),
       };
 
-      this.setState(newState);
+      const winner = GameService.findWinner(newState.pentago);
+
+      this.setState({ ...newState, winner });
     }
   };
 
   render() {
-    const { pentago } = this.state;
+    const { pentago, winner } = this.state;
     return (
       <div>
         <h1 className="title">Pentago</h1>
@@ -47,6 +49,7 @@ class App extends Component {
             </div>
           ))}
         </div>
+        {winner && <h1 className="title">Winner: player {winner}</h1>}
       </div>
     );
   }
